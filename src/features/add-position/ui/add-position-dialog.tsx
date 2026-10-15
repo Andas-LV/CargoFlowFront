@@ -3,8 +3,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MapPinPlus } from "lucide-react";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useController, useForm } from "react-hook-form";
 
+import { OsmAttribution, StationAutocomplete } from "@/entities/station";
 import { getErrorMessage } from "@/shared/api";
 import { Alert, AlertDescription } from "@/shared/ui/alert";
 import { Button } from "@/shared/ui/button";
@@ -19,11 +20,10 @@ import {
 	DialogTrigger,
 } from "@/shared/ui/dialog";
 import { FormField, fieldMessageId } from "@/shared/ui/form-field";
-import { Input } from "@/shared/ui/input";
-import { Spinner } from "@/shared/ui/spinner";
 import {
 	ADD_POSITION_DEFAULTS,
 	addPositionSchema,
+	toAddPositionPayload,
 	type AddPositionFormInput,
 	type AddPositionFormValues,
 } from "../model/add-position-schema";
@@ -31,20 +31,29 @@ import { useAddPosition } from "../model/use-add-position";
 
 interface AddPositionDialogProps {
 	shipmentId: string;
+	lastStationId?: string;
 }
 
-export function AddPositionDialog({ shipmentId }: AddPositionDialogProps) {
+const STATION_FIELD_ID = "position-station";
+
+export function AddPositionDialog({
+	shipmentId,
+	lastStationId,
+}: AddPositionDialogProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const addPosition = useAddPosition(shipmentId);
-	const {
-		register,
-		handleSubmit,
-		reset,
-		formState: { errors },
-	} = useForm<AddPositionFormInput, unknown, AddPositionFormValues>({
+	const { control, handleSubmit, reset } = useForm<
+		AddPositionFormInput,
+		unknown,
+		AddPositionFormValues
+	>({
 		resolver: zodResolver(addPositionSchema),
 		defaultValues: ADD_POSITION_DEFAULTS,
 	});
+	const {
+		field: { ref, value, onChange, onBlur },
+		fieldState: { error },
+	} = useController({ control, name: "station" });
 
 	const handleOpenChange = (open: boolean) => {
 		setIsOpen(open);
@@ -55,7 +64,9 @@ export function AddPositionDialog({ shipmentId }: AddPositionDialogProps) {
 	};
 
 	const onSubmit = handleSubmit((values) =>
-		addPosition.mutate(values, { onSuccess: () => handleOpenChange(false) }),
+		addPosition.mutate(toAddPositionPayload(values), {
+			onSuccess: () => handleOpenChange(false),
+		}),
 	);
 
 	return (
@@ -83,61 +94,31 @@ export function AddPositionDialog({ shipmentId }: AddPositionDialogProps) {
 					)}
 					<FormField
 						label="Станция"
-						htmlFor="station"
-						error={errors.station?.message}
+						htmlFor={STATION_FIELD_ID}
+						error={error?.message}
+						hint="Координаты подставятся из справочника"
 					>
-						<Input
-							id="station"
-							placeholder="Karaganda"
-							autoComplete="off"
+						<StationAutocomplete
+							id={STATION_FIELD_ID}
+							ref={ref}
+							value={value}
+							onChange={onChange}
+							onBlur={onBlur}
+							placeholder="Например, Караганда"
+							isItemDisabled={(station) => station.id === lastStationId}
 							autoFocus
-							aria-invalid={!!errors.station}
-							aria-describedby={fieldMessageId("station")}
-							{...register("station")}
+							aria-invalid={!!error}
+							aria-describedby={fieldMessageId(STATION_FIELD_ID)}
 						/>
 					</FormField>
-					<div className="grid gap-4 sm:grid-cols-2">
-						<FormField
-							label="Широта"
-							htmlFor="lat"
-							error={errors.lat?.message}
-							hint="Необязательно"
-						>
-							<Input
-								id="lat"
-								inputMode="decimal"
-								placeholder="49.8047"
-								autoComplete="off"
-								aria-invalid={!!errors.lat}
-								aria-describedby={fieldMessageId("lat")}
-								{...register("lat")}
-							/>
-						</FormField>
-						<FormField
-							label="Долгота"
-							htmlFor="lon"
-							error={errors.lon?.message}
-							hint="Необязательно"
-						>
-							<Input
-								id="lon"
-								inputMode="decimal"
-								placeholder="73.1094"
-								autoComplete="off"
-								aria-invalid={!!errors.lon}
-								aria-describedby={fieldMessageId("lon")}
-								{...register("lon")}
-							/>
-						</FormField>
-					</div>
+					<OsmAttribution />
 					<DialogFooter className="mt-2">
 						<DialogClose asChild>
 							<Button type="button" variant="outline">
 								Отмена
 							</Button>
 						</DialogClose>
-						<Button type="submit" disabled={addPosition.isPending}>
-							{addPosition.isPending && <Spinner />}
+						<Button type="submit" loading={addPosition.isPending}>
 							Отметить
 						</Button>
 					</DialogFooter>

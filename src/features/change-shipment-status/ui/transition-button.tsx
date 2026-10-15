@@ -10,7 +10,6 @@ import {
 	AlertDialogTrigger,
 } from "@/shared/ui/alert-dialog";
 import { Button } from "@/shared/ui/button";
-import { Spinner } from "@/shared/ui/spinner";
 import type { TransitionAction } from "../model/transition-actions";
 
 interface TransitionButtonProps {
@@ -30,9 +29,10 @@ export function TransitionButton({
 		<Button
 			variant={variant}
 			disabled={disabled}
+			loading={isPending}
 			onClick={confirmation ? undefined : onConfirm}
 		>
-			{isPending ? <Spinner /> : <Icon />}
+			<Icon />
 			{label}
 		</Button>
 	);

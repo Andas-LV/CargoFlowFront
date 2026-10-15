@@ -6,6 +6,7 @@ import { toast } from "sonner";
 
 import { CreateShipmentForm } from "@/features/create-shipment";
 import type { Shipment } from "@/entities/shipment";
+import { getStationName } from "@/entities/station";
 import { routes } from "@/shared/config";
 import { BackLink } from "@/shared/ui/back-link";
 import { Button } from "@/shared/ui/button";
@@ -17,7 +18,7 @@ export function NewShipmentPage() {
 
 	const handleCreated = (shipment: Shipment) => {
 		toast.success("Заявка создана", {
-			description: `${shipment.origin} → ${shipment.destination}`,
+			description: `${getStationName(shipment.originStation)} → ${getStationName(shipment.destinationStation)}`,
 		});
 		router.push(routes.shipment(shipment.id));
 	};

@@ -5,7 +5,6 @@ import { Send } from "lucide-react";
 import type { TelegramLink } from "@/entities/telegram";
 import { getErrorMessage } from "@/shared/api";
 import { Button } from "@/shared/ui/button";
-import { Spinner } from "@/shared/ui/spinner";
 import { useLinkTelegram } from "../model/use-link-telegram";
 
 interface LinkTelegramButtonProps {
@@ -28,9 +27,10 @@ export function LinkTelegramButton({
 			<Button
 				variant={variant}
 				onClick={linkTelegram}
-				disabled={isPending || isUnavailable}
+				disabled={isUnavailable}
+				loading={isPending}
 			>
-				{isPending ? <Spinner /> : <Send />}
+				<Send />
 				{isUnavailable ? "Временно недоступно" : label}
 			</Button>
 			{error && (

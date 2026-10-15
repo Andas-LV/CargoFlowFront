@@ -8,6 +8,11 @@ import {
 	isFinalStatus,
 	type Shipment,
 } from "@/entities/shipment";
+import {
+	formatStationMeta,
+	getStationName,
+	type Station,
+} from "@/entities/station";
 import { formatDateTime } from "@/shared/lib/date";
 import {
 	Card,
@@ -34,6 +39,17 @@ function DetailRow({
 			<dt className="text-muted-foreground">{label}</dt>
 			<dd className="min-w-0 truncate text-right font-medium">{children}</dd>
 		</div>
+	);
+}
+
+function StationValue({ station }: { station: Station }) {
+	return (
+		<span className="flex flex-col items-end">
+			<span className="truncate">{getStationName(station)}</span>
+			<span className="text-muted-foreground text-xs font-normal">
+				{formatStationMeta(station)}
+			</span>
+		</span>
 	);
 }
 
@@ -75,8 +91,12 @@ export function ShipmentOverview({ shipment }: ShipmentOverviewProps) {
 					</div>
 					<Separator />
 					<dl className="divide-y">
-						<DetailRow label="Откуда">{shipment.origin}</DetailRow>
-						<DetailRow label="Куда">{shipment.destination}</DetailRow>
+						<DetailRow label="Откуда">
+							<StationValue station={shipment.originStation} />
+						</DetailRow>
+						<DetailRow label="Куда">
+							<StationValue station={shipment.destinationStation} />
+						</DetailRow>
 						<DetailRow label="Создана">
 							{formatDateTime(shipment.createdAt)}
 						</DetailRow>

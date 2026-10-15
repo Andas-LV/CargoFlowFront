@@ -14,7 +14,6 @@ import {
 	AlertDialogTrigger,
 } from "@/shared/ui/alert-dialog";
 import { Button } from "@/shared/ui/button";
-import { Spinner } from "@/shared/ui/spinner";
 import { useUnlinkTelegram } from "../model/use-unlink-telegram";
 
 interface UnlinkTelegramButtonProps {
@@ -29,8 +28,8 @@ export function UnlinkTelegramButton({
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
-				<Button variant="outline" disabled={unlink.isPending}>
-					{unlink.isPending ? <Spinner /> : <Unlink />}
+				<Button variant="outline" loading={unlink.isPending}>
+					<Unlink />
 					Отключить
 				</Button>
 			</AlertDialogTrigger>

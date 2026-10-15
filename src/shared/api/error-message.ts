@@ -13,6 +13,12 @@ const KNOWN_MESSAGES: ReadonlyArray<readonly [RegExp, string]> = [
 	],
 	[/invalid status transition/i, "Недопустимая смена статуса"],
 	[/station is required/i, "Укажите станцию"],
+	[/unknown origin station/i, "Станция отправления не найдена в справочнике"],
+	[
+		/unknown destination station/i,
+		"Станция назначения не найдена в справочнике",
+	],
+	[/unknown station/i, "Станция не найдена в справочнике"],
 	[/shipment not found/i, "Заявка не найдена"],
 ];
 

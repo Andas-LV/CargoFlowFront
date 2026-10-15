@@ -22,11 +22,7 @@ export function ShipmentCard({ shipment, href }: ShipmentCardProps) {
 		>
 			<CargoTypeIcon cargoType={shipment.cargoType} />
 			<div className="flex min-w-0 flex-1 flex-col gap-1">
-				<ShipmentDirection
-					origin={shipment.origin}
-					destination={shipment.destination}
-					className="font-medium"
-				/>
+				<ShipmentDirection shipment={shipment} className="font-medium" />
 				<span className="text-muted-foreground flex flex-wrap items-center gap-x-2 text-xs">
 					<span className="font-mono">#{shortId(shipment.id)}</span>
 					<span aria-hidden>·</span>

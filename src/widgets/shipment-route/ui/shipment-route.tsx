@@ -62,7 +62,10 @@ export function ShipmentRoute({ shipment }: ShipmentRouteProps) {
 				</CardDescription>
 				{canAddPosition && (
 					<CardAction>
-						<AddPositionDialog shipmentId={shipment.id} />
+						<AddPositionDialog
+							shipmentId={shipment.id}
+							lastStationId={positions?.at(-1)?.stationId}
+						/>
 					</CardAction>
 				)}
 			</CardHeader>

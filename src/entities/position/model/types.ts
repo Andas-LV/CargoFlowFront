@@ -10,6 +10,7 @@ export interface Position {
 	id: string;
 	shipmentId: string;
 	station: string;
+	stationId: string;
 	lat: number;
 	lon: number;
 	source: PositionSource | (string & {});
@@ -17,7 +18,5 @@ export interface Position {
 }
 
 export interface AddPositionPayload {
-	station: string;
-	lat?: number;
-	lon?: number;
+	stationId: string;
 }

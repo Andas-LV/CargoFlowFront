@@ -93,12 +93,7 @@ export function ShipmentPage({ shipmentId }: ShipmentPageProps) {
 						<ShipmentStatusBadge status={shipment.status} className="text-sm" />
 					</span>
 				}
-				description={
-					<ShipmentDirection
-						origin={shipment.origin}
-						destination={shipment.destination}
-					/>
-				}
+				description={<ShipmentDirection shipment={shipment} />}
 			/>
 			<div className="grid items-start gap-6 lg:grid-cols-2">
 				<ShipmentOverview shipment={shipment} />

@@ -26,8 +26,8 @@ function ErrorState({
 			className={className}
 			action={
 				onRetry && (
-					<Button variant="outline" onClick={onRetry} disabled={isRetrying}>
-						<RotateCw className={isRetrying ? "animate-spin" : undefined} />
+					<Button variant="outline" onClick={onRetry} loading={isRetrying}>
+						<RotateCw />
 						Повторить
 					</Button>
 				)

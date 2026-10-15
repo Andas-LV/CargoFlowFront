@@ -10,7 +10,6 @@ import { Button } from "@/shared/ui/button";
 import { FormField, fieldMessageId } from "@/shared/ui/form-field";
 import { Input } from "@/shared/ui/input";
 import { PasswordInput } from "@/shared/ui/password-input";
-import { Spinner } from "@/shared/ui/spinner";
 import {
 	registerSchema,
 	type RegisterFormValues,
@@ -94,8 +93,7 @@ export function RegisterForm() {
 					{...register("passwordConfirmation")}
 				/>
 			</FormField>
-			<Button type="submit" size="lg" disabled={isPending} className="mt-2">
-				{isPending && <Spinner />}
+			<Button type="submit" size="lg" loading={isPending} className="mt-2">
 				Создать аккаунт
 			</Button>
 		</form>

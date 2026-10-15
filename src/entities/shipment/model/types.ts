@@ -1,3 +1,5 @@
+import type { Station } from "@/entities/station/@x/shipment";
+
 export const CargoType = {
 	Wagon: "CARGO_TYPE_WAGON",
 	Container: "CARGO_TYPE_CONTAINER",
@@ -19,8 +21,8 @@ export interface Shipment {
 	id: string;
 	ownerId: string;
 	cargoType: CargoType;
-	origin: string;
-	destination: string;
+	originStation: Station;
+	destinationStation: Station;
 	status: ShipmentStatus;
 	createdAt: string;
 	updatedAt: string;
@@ -28,6 +30,6 @@ export interface Shipment {
 
 export interface CreateShipmentPayload {
 	cargoType: CargoType;
-	origin: string;
-	destination: string;
+	originStationId: string;
+	destinationStationId: string;
 }

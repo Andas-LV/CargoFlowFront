@@ -9,7 +9,6 @@ import { Button } from "@/shared/ui/button";
 import { FormField, fieldMessageId } from "@/shared/ui/form-field";
 import { Input } from "@/shared/ui/input";
 import { PasswordInput } from "@/shared/ui/password-input";
-import { Spinner } from "@/shared/ui/spinner";
 import { loginSchema, type LoginFormValues } from "../model/login-schema";
 import { useLogin } from "../model/use-login";
 
@@ -59,8 +58,7 @@ export function LoginForm() {
 					{...register("password")}
 				/>
 			</FormField>
-			<Button type="submit" size="lg" disabled={isPending} className="mt-2">
-				{isPending && <Spinner />}
+			<Button type="submit" size="lg" loading={isPending} className="mt-2">
 				Войти
 			</Button>
 		</form>
