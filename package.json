@@ -9,7 +9,8 @@
 		"lint": "next lint",
 		"clean": "rimraf .next",
 		"generate:feature": "tsx scripts/generate-feature.ts",
-		"generate:api": "tsx scripts/generate-api.ts"
+		"generate:api": "tsx scripts/generate-api.ts",
+		"generate:geo": "tsx scripts/generate-country-geojson.ts"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^5.2.2",
@@ -28,11 +29,13 @@
 		"dotenv": "^17.3.1",
 		"js-cookie": "^3.0.5",
 		"lucide-react": "^0.487.0",
+		"maplibre-gl": "^5.24.0",
 		"next": "16.1.6",
 		"next-themes": "^0.4.6",
 		"react": "^19.2.4",
 		"react-dom": "^19.2.4",
 		"react-hook-form": "^7.71.1",
+		"react-map-gl": "^8.1.3",
 		"sonner": "^2.0.8",
 		"tailwind-merge": "^3.4.0",
 		"tw-animate-css": "^1.4.0",

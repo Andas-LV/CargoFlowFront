@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import { ShipmentOverview } from "@/widgets/shipment-overview";
 import { ShipmentRoute } from "@/widgets/shipment-route";
+import { ShipmentRouteMap } from "@/widgets/shipment-route-map";
 import {
 	ShipmentDirection,
 	ShipmentStatusBadge,
@@ -95,6 +96,7 @@ export function ShipmentPage({ shipmentId }: ShipmentPageProps) {
 				}
 				description={<ShipmentDirection shipment={shipment} />}
 			/>
+			<ShipmentRouteMap shipment={shipment} />
 			<div className="grid items-start gap-6 lg:grid-cols-2">
 				<ShipmentOverview shipment={shipment} />
 				<ShipmentRoute shipment={shipment} />

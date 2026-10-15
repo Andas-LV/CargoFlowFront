@@ -3,6 +3,7 @@ export const routes = {
 	login: "/login",
 	register: "/register",
 	shipments: "/shipments",
+	shipmentsMap: "/shipments?view=map",
 	newShipment: "/shipments/new",
 	shipment: (id: string) => `/shipments/${id}`,
 	settings: "/settings",

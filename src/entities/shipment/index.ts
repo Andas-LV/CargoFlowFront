@@ -6,6 +6,8 @@ export {
 } from "./model/types";
 export {
 	SHIPMENT_STATUS_LABEL,
+	SHIPMENT_STATUS_COLOR,
+	SHIPMENT_STATUS_FLOW,
 	getAvailableTransitions,
 	isFinalStatus,
 } from "./model/status";

@@ -31,3 +31,10 @@ export const getAvailableTransitions = (status: ShipmentStatus) =>
 
 export const isFinalStatus = (status: ShipmentStatus) =>
 	STATUS_TRANSITIONS[status].length === 0;
+
+export const SHIPMENT_STATUS_COLOR: Record<ShipmentStatus, string> = {
+	[ShipmentStatus.Created]: "#6366f1",
+	[ShipmentStatus.InTransit]: "#f59e0b",
+	[ShipmentStatus.Delivered]: "#10b981",
+	[ShipmentStatus.Cancelled]: "#a1a1aa",
+};
